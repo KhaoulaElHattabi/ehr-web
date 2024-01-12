@@ -1,0 +1,16 @@
+/* Create a custom class for the navbar */
+.navbar-custom {
+  /* Set the background color to #525CEB */
+  background-color: #596FB7;
+}
+
+.text-color{
+  color: white;
+}
+
+
+button:hover, button:hover i {
+  color: #11235A;
+}
+
+

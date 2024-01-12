@@ -1,1 +1,66 @@
-<p>health-records works!</p>
+<div class="p-3 mx-5">
+  <div class="card mx-5">
+    <div class="card-header">
+      <div class="row ">
+        <div class="col-md-6  ">
+          <h4 class="dark-blue">Electronic Health Records Dashboard</h4>
+          <p class="color-grey ">Hospital Admin Dashboard</p>
+        </div>
+        <div class="col-md-6 text-center ">
+          <button class="btn p-2 color-custom text-white color- my-3" data-bs-toggle="modal" data-bs-target="#myModal">
+            <i class="bi bi-plus-lg"></i> New Record
+          </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title " id="myModalLabel"> Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                body
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="card-body">
+      <table class=" table table-hover text-center">
+        <thead><tr>
+          <th>#</th>
+          <th>PatientID</th>
+          <th>Diagnosis</th>
+          <th> N° Prescription</th>
+          <th >N° Appoitments</th>
+          <th >Actions</th>
+        </tr></thead>
+        <tbody>
+        <tr *ngFor="let ehr of ehrs ">
+          <td>{{ehr.id}}</td>
+          <td>{{ehr.patientId}}</td>
+          <td>{{ehr.diagnosis}}</td>
+          <td>{{ehr.prescriptionNumber}} prescriptions</td>
+          <td>{{ehr.appointmentsNumber}} appointments</td>
+          <td>
+            <button class="btn ms-1 " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" ><i class="bi bi-three-dots-vertical"></i></button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" >Display Record</a></li>
+              <li><a class="dropdown-item" >Modify Record</a></li>
+              <li><a class="dropdown-item" >Delete Record</a></li>
+              <li><a class="dropdown-item" >Check Patient</a></li>
+              <li><a class="dropdown-item" >Check Appointments</a></li>
+            </ul>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
