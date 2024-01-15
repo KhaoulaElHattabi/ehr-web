@@ -34,6 +34,14 @@ export class PatientsComponent  implements  OnInit {
       address: ['', Validators.required],
     });
 
+    this.patientFormEdit = this.fb.group({
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      date_of_birth: [''],
+      phone_number: ['', Validators.required],
+      address: ['', Validators.required],
+    });
+
   }
   handlePatientList()  {
     this.patientService.getPatients()
@@ -66,7 +74,7 @@ export class PatientsComponent  implements  OnInit {
         () => {
           console.log('Patient deleted successfully.');
           this.handlePatientList(); // Refresh the patient list after deletion
-
+          this
 
         },
         (error) => {
@@ -84,5 +92,44 @@ export class PatientsComponent  implements  OnInit {
   }
    //edit
 
+  loadSelectedPatient(): void {
+    // Assuming you have a selectedPatient property in your component
+    // that is set when a user clicks the "Modify Patient" button
+    if (this.selectedPatient) {
+      this.patientFormEdit.patchValue({
+        first_name: this.selectedPatient.first_name,
+        last_name: this.selectedPatient.last_name,
+        date_of_birth: this.selectedPatient.date_of_birth,
+        phone_number: this.selectedPatient.phone_number,
+        address: this.selectedPatient.address
+      });
+
+    }
+  }
+
+
+  onModifyPatient(patient: Patient): void {
+    this.selectedPatient = patient;
+    this.loadSelectedPatient();
+  }
+// In your patients.component.ts
+  onSaveChanges(): void {
+    const updatedPatientData = this.patientFormEdit.value;
+
+    if (this.selectedPatient && this.selectedPatient.id) {
+      const patientId = this.selectedPatient.id;
+      this.patientService.updatePatient(patientId, updatedPatientData)
+        .subscribe(
+          (updatedPatient) => {
+            console.log('Patient updated successfully:', updatedPatient);
+            this.handlePatientList();
+            this.patientForm.reset();
+          },
+          (error) => {
+            console.error('Error updating patient:', error);
+          }
+        );
+    }
+  }
 
 }

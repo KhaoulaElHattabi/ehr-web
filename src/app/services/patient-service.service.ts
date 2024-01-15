@@ -23,8 +23,8 @@ export class PatientServiceService {
     return this.http.delete<void>(`${Environement.backendBase}/patient-service/delete-patient/${patientId}`);
   }
 
-  public editPatient(patient: Patient): Observable<Patient> {
-    return this.http.put<Patient>(Environement.backendBase + `/patient-service/update-patient`, patient);
+  updatePatient(patientId: number, updatedPatient: Patient): Observable<Patient> {
+    return this.http.put<Patient>(`${Environement.backendBase}/patient-service/patients/${patientId}`, updatedPatient);
   }
 
 }
