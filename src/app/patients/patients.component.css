@@ -1,4 +1,9 @@
 .grey-color{
   color: grey;
 }
+.table-container{
+  max-height: 400px;
+  overflow-y: auto ;
+}
+
 

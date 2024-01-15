@@ -7,6 +7,7 @@ import {AppointmentsComponent} from "./appointments/appointments.component";
 
 const routes: Routes = [
   {path : "home", component : HomeComponent},
+  {path : "", component : HomeComponent},
   {path : "ehr", component : HealthRecordsComponent},
   {path : "patients", component : PatientsComponent},
   {path : "appointments", component : AppointmentsComponent}

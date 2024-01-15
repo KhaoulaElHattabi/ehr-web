@@ -23,8 +23,8 @@
                 body
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
-              </div>
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Discard</button>
+                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Save changes</button>              </div>
             </div>
           </div>
         </div>
@@ -51,16 +51,40 @@
           <td>
             <button class="btn ms-1 " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" ><i class="bi bi-three-dots-vertical"></i></button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" >Display Record</a></li>
-              <li><a class="dropdown-item" >Modify Record</a></li>
-              <li><a class="dropdown-item" >Delete Record</a></li>
-              <li><a class="dropdown-item" >Check Patient</a></li>
-              <li><a class="dropdown-item" >Check Appointments</a></li>
+              <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#displaRecord" >Display Record</button></li>
+              <li><button class="dropdown-item" >Modify Record</button></li>
+              <li><button class="dropdown-item" >Delete Record</button></li>
+              <li><button class="dropdown-item" >Check Patient</button></li>
+              <li><button class="dropdown-item" >Check Appointments</button></li>
             </ul>
           </td>
         </tr>
         </tbody>
       </table>
+      <!-- Modal -->
+      <div class="modal fade" id="displayRecord" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" >  Patient Card</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              body
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+
 </div>
+
+<router-outlet>
+
+  <app-about-us></app-about-us>
+</router-outlet>

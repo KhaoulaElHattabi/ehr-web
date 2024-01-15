@@ -1,17 +1,88 @@
-import { Component } from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
+import {Observable} from "rxjs";
+import {Patient} from "../model/patient";
+import {PatientServiceService} from "../services/patient-service.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.css', '../../styles.css']
 })
-export class PatientsComponent {
-  patients : Array<any> = [
-    {id : 1, fullName : "hasan faris",
-      dateBirth : "01/02/2000", adresse : "bd zfzafi",
-      phoneNumber: '+212 6123457890'},
-    {id : 2, fullName : "hasan fatis", dateBirth : "01/02/2000", adresse : "bd zfzafi", phoneNumber: '+212 6123457890'},
-    {id : 3, fullName : "hasan fatis", dateBirth : "01/02/2000", adresse : "bd zfzafi", phoneNumber: '+212 6123457890'},
-    {id : 4, fullName : "hasan fatis", dateBirth : "01/02/2000", adresse : "bd zfzafi", phoneNumber: '+212 6123457890'},
-  ]
+export class PatientsComponent  implements  OnInit {
+
+  selectedPatient: Patient | null = null; // Add this variable to store the selected patient
+  patients!: Patient[]
+  patientForm!: FormGroup
+  editingPatient: boolean = false; // Add this variable to track edit mode
+  patientFormEdit!: FormGroup;
+
+
+  constructor(private fb: FormBuilder,private patientService: PatientServiceService,private router : Router, private datePipe: DatePipe) {
+  }
+
+  ngOnInit(): void {
+    this.handlePatientList();
+
+    this.patientForm = this.fb.group({
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      date_of_birth: [''],
+      phone_number: ['', Validators.required],
+      address: ['', Validators.required],
+    });
+
+  }
+  handlePatientList()  {
+    this.patientService.getPatients()
+      .subscribe(patients => this.patients = patients);
+  }
+
+
+  onSubmit() {
+
+      // Assuming you have a PatientService for handling form submissions
+      this.patientService.addPatient(this.patientForm.value).subscribe(
+        (response) => {
+         // console.log('Patient added successfully:', response);
+          // Redirect or navigate to another page after successful form submission
+          this.patientForm.reset();
+
+          this.handlePatientList()
+          //this.router.navigate(['/patients']);
+        },
+        (error) => {
+          console.error('Error adding patient:', error);
+        }
+      );
+
+  }
+
+
+  onDelete(patientId: number) {
+      this.patientService.deletePatient(patientId).subscribe(
+        () => {
+          console.log('Patient deleted successfully.');
+          this.handlePatientList(); // Refresh the patient list after deletion
+
+
+        },
+        (error) => {
+          console.error('Error deleting patient:', error);
+        }
+      );
+    }
+
+  viewPatient(patient: Patient) {
+    this.selectedPatient = patient;
+  }
+
+  formatDate(date: Date): string {
+    return this.datePipe.transform(date, 'yyyy-MM-dd') ?? '';
+  }
+   //edit
+
+
 }
